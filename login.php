@@ -24,12 +24,14 @@ if (isset($_POST['submit'])) {
                $_SESSION['admin_name'] = $row['name'];
                $_SESSION['admin_email'] = $row['email'];
                $_SESSION['admin_id'] = $row['id'];
-               header('location:home.php');
+               // Админ хуудсанд шилжих
+               header('location:admin.php');
           } elseif ($row['user_type'] == 'user') {
 
                $_SESSION['user_name'] = $row['name'];
                $_SESSION['user_email'] = $row['email'];
                $_SESSION['user_id'] = $row['id'];
+               // Хэрэглэгчийн үндсэн хуудсанд шилжих
                header('location:home.php');
           }
      } else {
@@ -41,43 +43,151 @@ if (isset($_POST['submit'])) {
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
 
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Нэвтрэх</title>
 
+     <!-- FONT AWESOME ICON -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+     <style>
+          * {
+               box-sizing: border-box;
+               font-family: "Segoe UI", system-ui, sans-serif
+          }
+
+          body {
+               margin: 0;
+               height: 100vh;
+               background: linear-gradient(135deg, #667eea, #764ba2);
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               position: relative;
+          }
+
+          .brand-tag {
+               position: absolute;
+               top: 24px;
+               left: 28px;
+               font-size: 14px;
+               font-weight: 600;
+               color: #fff;
+               opacity: .95;
+          }
+
+          .brand-tag span {
+               font-weight: 400;
+               opacity: .85
+          }
+
+          .card {
+               width: 380px;
+               background: #fff;
+               padding: 32px;
+               border-radius: 14px;
+               box-shadow: 0 20px 50px rgba(0, 0, 0, .25)
+          }
+
+          .card h3 {
+               text-align: center;
+               margin-bottom: 22px;
+               font-size: 22px;
+               font-weight: 600
+          }
+
+          .card h3 i {
+               margin-right: 8px;
+               color: #667eea;
+          }
+
+          input {
+               width: 100%;
+               padding: 14px;
+               margin-bottom: 14px;
+               border-radius: 8px;
+               border: 1px solid #ddd;
+          }
+
+          input:focus {
+               outline: none;
+               border-color: #667eea
+          }
+
+          button {
+               width: 100%;
+               padding: 14px;
+               border: none;
+               border-radius: 8px;
+               background: linear-gradient(135deg, #667eea, #764ba2);
+               color: #fff;
+               font-size: 15px;
+               font-weight: 600;
+               cursor: pointer;
+          }
+
+          button i {
+               margin-right: 6px
+          }
+
+          .link {
+               text-align: center;
+               margin-top: 16px;
+               font-size: 14px
+          }
+
+          .link a {
+               color: #667eea;
+               font-weight: 600;
+               text-decoration: none
+          }
+
+          .alert {
+               background: #ffe3e3;
+               color: #b30000;
+               padding: 10px;
+               border-radius: 6px;
+               margin-bottom: 14px;
+               text-align: center;
+          }
+     </style>
 </head>
 
 <body>
-     <!-- Алдааны мессежийг харуулах хэсэг -->
-     <?php
-     if (isset($message)) {
-          foreach ($message as $message) {
-               echo '
-          <div class="message">
-          <span>' . $message . '</span>
-          <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
-          </div>
-          ';
-          }
-     }
-     ?>
 
-     <!-- нэвтрэх цонх -->
-     <div class="form-dontainer">
-          <form action="" method="post">
-               <h3>Нэвтрэх</h3>
-               <input type="email" name="email" required placeholder="Имэйл хаяг" class="box">
-               <input type="password" name="password" required placeholder="Нууц үг" class="box">
-               <input type="submit" name="submit" value="Нэвтрэх" class="btn">
-               <p>Бүртгэлгүй юу? <a href="register.php">Бүртгүүлэх</a></p>
-          </form>
+     <div class="brand-tag">
+          Datacare ХХК · <span>Дадлага ажил</span>
      </div>
 
+     <div class="card">
 
+          <?php
+          if (isset($message)) {
+               foreach ($message as $msg) {
+                    echo '<div class="alert">' . $msg . '</div>';
+               }
+          }
+          ?>
 
+          <form method="post">
+               <h3><i class="fa-solid fa-right-to-bracket"></i>Нэвтрэх</h3>
+
+               <input type="email" name="email" placeholder="Имэйл хаяг" required>
+               <input type="password" name="password" placeholder="Нууц үг" required>
+
+               <button name="submit">
+                    <i class="fa-solid fa-lock"></i>Нэвтрэх
+               </button>
+
+               <div class="link">
+                    Бүртгэлгүй юу? <a href="register.php">Бүртгүүлэх</a>
+               </div>
+          </form>
+
+     </div>
 </body>
 
 </html>
