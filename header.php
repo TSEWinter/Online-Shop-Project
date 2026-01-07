@@ -1,105 +1,75 @@
 <?php
-// Session ба мэссежийг удирдах хэсэг
-
-// Сессион эхлүүлэх
-// Хэрэв сессион идэвхгүй бол идэвхжүүлнэ
-if (session_status() !== PHP_SESSION_ACTIVE) {
-     session_start();
-}
-
-// мэссежийг харуулах хэсэг
-if (isset($message)) {
-     foreach ($message as $message) {
-          echo '
-          <div class="message">
-               <span>' . $message . '</span>
-               <!-- X товч дарвал мессеж устгагддаг -->
-               <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
-          </div>
-          ';
-     }
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 ?>
+<style>
+.header{
+    background:#fff;
+    padding:18px 48px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 6px 20px rgba(0,0,0,.06);
+}
+.logo{
+    font-size:22px;
+    font-weight:800;
+}
+.nav{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+.nav a{
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    padding:10px 18px;
+    border-radius:999px;
+    transition:.2s;
+}
 
-<header class="header">
-     <!-- цонх хэсэг эхлэл -->
-     <div class="header-1">
-          <div class="flex">
-               <div class="share">
-                    <!-- Бусад сошиал сувгууд: -->
-                    <a href="#" class="fab fa-facebook-f"></a>
-                    <a href="#" class="fab fa-instagram"></a>
-               </div>
-               <!-- Нэвтрэх эсвэл бүртгүүлэх холбоосууд: -->
-               <p> Шинээр <a href="login.php">Нэвтрэх</a> | <a href="register.php">Бүртгүүлэх</a> </p>
-          </div>
-     </div>
+/* BUTTON STYLES */
+.btn-login{
+    color:#111;
+    background:#f1f3f5;
+}
+.btn-login:hover{
+    background:#e9ecef;
+}
+.btn-register{
+    color:#fff;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+}
+.btn-register:hover{opacity:.9}
+.btn-logout{
+    color:#fff;
+    background:#111;
+}
+.btn-logout:hover{opacity:.85}
+.btn-dashboard{
+    color:#fff;
+    background:#667eea;
+}
+</style>
 
-     <!-- Үндсэн толгой хэсэг эхлэл -->
-     <div class="header-2">
-          <div class="flex">
-               <a href="home.php" class="logo">Online Shop</a>
+<div class="header">
+    <div class="logo">Online Shop</div>
 
-               <!-- Үндсэн хуудсын навигацийн цэс -->
-               <nav class="navbar">
-                    <a href="home.php">Нүүр</a>
-                    <a href="shop.php">Дэлгүүр</a>
-                    <a href="orders.php">Захиалга</a>
-                    <a href="about.php">Бидний тухай</a>
-               </nav>
+    <div class="nav">
+        <a href="home.php">Нүүр</a>
 
+        <?php if (isset($_SESSION['admin_id'])): ?>
+            <a href="admin/dashboard.php" class="btn-dashboard">Dashboard</a>
+            <a href="logout.php" class="btn-logout">Гарах</a>
 
-               <div class="icons">
-                    <div id="menu-btn" class="fas fa-bars"></div>
-                    <!-- Хайлтын товч -->
-                    <a href="search_page.php" class="fas fa-search"></a>
-                    <!-- Хэрэглэгчийн профиль товч -->
-                    <div id="user-btn" class="fas fa-user"></div>
+        <?php elseif (isset($_SESSION['user_id'])): ?>
+            <a href="logout.php" class="btn-logout">Гарах</a>
 
-                    <!-- Сагс дээрх бүтээгдэхүүнийг харах хэсэг -->
-                    <?php
-                    // Сагсны тоог эхнээс 0 болгоно
-                    $cart_rows_number = 0;
-
-                    // Хэрэглэгч нэвтэрсэн ба датабаз холбогдсон эсэхийг шалгана
-                    if (isset($_SESSION['user_id']) && isset($conn)) {
-                         // SQL халдлагаас сэргийлэхийн тулд user_id-г хамгаалнаа
-                         $user_id = mysqli_real_escape_string($conn, $_SESSION['user_id']);
-
-                         // Уг хэрэглэгчийн сагсан дээрх бүтээгдэхүүнүүдийг хайна
-                         $select_cart_number = mysqli_query($conn, "SELECT * FROM `cart` WHERE user_id = '$user_id'");
-
-                         // Асуулт амжилттай боловсрүүлэгдсэн бол сагсны түүхүүг авна
-                         if ($select_cart_number) {
-                              $cart_rows_number = mysqli_num_rows($select_cart_number);
-                         }
-                    }
-                    ?>
-
-                    <!-- Сагсны товч: нэвтэрсэн бол cart.php, үгүй бол login.php уруу явна -->
-                    <a href="<?php echo isset($_SESSION['user_id']) ? 'cart.php' : 'login.php'; ?>">
-                         <i class="fas fa-shopping-cart"></i>
-                         <span>(<?php echo $cart_rows_number; ?>)</span>
-                    </a>
-               </div>
-
-               <!-- Хэрэглэгчийн мэдээллийн хайрцаг -->
-               <?php if (isset($_SESSION['user_id']) && isset($_SESSION['user_name'])) { ?>
-                    <!-- НЭВТЭРСЭН ХЭРЭГЛЭГЧ: Профиль мэдээлэл болон гарах товч -->
-                    <div class="user-box">
-                         <p>хэрэглэгчийн нэр : <span><?php echo $_SESSION['user_name']; ?></span></p>
-                         <p>имэйл : <span><?php echo $_SESSION['user_email']; ?></span></p>
-                         <!-- Нэвтэрсэн хэрэглэгч гарахын цэсийг нээнэ -->
-                         <a href="logout.php" class="delete-btn">Гарах</a>
-                    </div>
-               <?php } else { ?>
-                    <!-- НЭВТРЭЭГҮЙ ХЭРЭГЛЭГЧ: Нэвтрэх ба бүртгүүлэх холбоос -->
-                    <div class="user-box">
-                         <p><a href="login.php">Нэвтрэх</a></p>
-                         <p><a href="register.php">Бүртгүүлэх</a></p>
-                    </div>
-               <?php } ?>
-          </div>
-     </div>
-     <!-- Үндсэн толгой хэсэг төгсгөл -->
-</header>
+        <?php else: ?>
+            <a href="login.php" class="btn-login">Нэвтрэх</a>
+            <a href="register.php" class="btn-register">Бүртгүүлэх</a>
+        <?php endif; ?>
+    </div>
+</div>
