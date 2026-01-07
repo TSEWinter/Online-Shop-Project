@@ -1,25 +1,25 @@
 <?php
 include 'config.php';
+session_start();
 
 if (isset($_POST['submit'])) {
 
-    $name  = mysqli_real_escape_string($conn, $_POST['name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $pass  = mysqli_real_escape_string($conn, md5($_POST['password']));
-    $cpass = mysqli_real_escape_string($conn, md5($_POST['cpassword']));
 
-    $select = mysqli_query($conn,"SELECT * FROM users WHERE email='$email'");
+    $select_users = mysqli_query(
+        $conn,
+        "SELECT * FROM users WHERE email='$email' AND password='$pass'"
+    ) or die('Нэвтрэхэд алдаа гарлаа');
 
-    if (mysqli_num_rows($select) > 0) {
-        $message[] = 'Имэйл аль хэдийн бүртгэлтэй байна!';
-    } elseif ($pass != $cpass) {
-        $message[] = 'Нууц үг таарахгүй байна!';
+    if (mysqli_num_rows($select_users) > 0) {
+        $row = mysqli_fetch_assoc($select_users);
+
+        $_SESSION['user_id'] = $row['id'];
+        header('location:home.php');
+        exit;
     } else {
-        mysqli_query($conn,
-            "INSERT INTO users(name,email,password,user_type)
-             VALUES('$name','$email','$pass','user')"
-        );
-        $message[] = 'Амжилттай бүртгэгдлээ. Нэвтэрнэ үү.';
+        $message[] = 'Имэйл эсвэл нууц үг буруу байна!';
     }
 }
 ?>
@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Бүртгүүлэх</title>
+<title>Нэвтрэх</title>
 
 <!-- FONT AWESOME ICON -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
 *{box-sizing:border-box;font-family:"Segoe UI",system-ui,sans-serif}
 body{
     margin:0;height:100vh;
-    background:linear-gradient(135deg,#43cea2,#185a9d);
+    background:linear-gradient(135deg,#667eea,#764ba2);
     display:flex;align-items:center;justify-content:center;
     position:relative;
 }
@@ -49,7 +49,7 @@ body{
 }
 .brand-tag span{font-weight:400;opacity:.85}
 .card{
-    width:400px;background:#fff;
+    width:380px;background:#fff;
     padding:32px;border-radius:14px;
     box-shadow:0 20px 50px rgba(0,0,0,.25)
 }
@@ -59,24 +59,25 @@ body{
 }
 .card h3 i{
     margin-right:8px;
-    color:#43cea2;
+    color:#667eea;
 }
 input{
     width:100%;padding:14px;margin-bottom:14px;
     border-radius:8px;border:1px solid #ddd;
 }
-input:focus{outline:none;border-color:#43cea2}
+input:focus{outline:none;border-color:#667eea}
 button{
     width:100%;padding:14px;border:none;
     border-radius:8px;
-    background:linear-gradient(135deg,#43cea2,#185a9d);
+    background:linear-gradient(135deg,#667eea,#764ba2);
     color:#fff;font-size:15px;font-weight:600;
+    cursor:pointer;
 }
 button i{margin-right:6px}
 .link{text-align:center;margin-top:16px;font-size:14px}
-.link a{color:#185a9d;font-weight:600;text-decoration:none}
+.link a{color:#667eea;font-weight:600;text-decoration:none}
 .alert{
-    background:#e7f7ee;color:#0f5132;
+    background:#ffe3e3;color:#b30000;
     padding:10px;border-radius:6px;
     margin-bottom:14px;text-align:center;
 }
@@ -100,19 +101,17 @@ if (isset($message)) {
 ?>
 
 <form method="post">
-    <h3><i class="fa-solid fa-user-plus"></i>Бүртгүүлэх</h3>
+    <h3><i class="fa-solid fa-right-to-bracket"></i>Нэвтрэх</h3>
 
-    <input type="text" name="name" placeholder="Нэр" required>
     <input type="email" name="email" placeholder="Имэйл хаяг" required>
     <input type="password" name="password" placeholder="Нууц үг" required>
-    <input type="password" name="cpassword" placeholder="Нууц үг давтах" required>
 
     <button name="submit">
-        <i class="fa-solid fa-user-check"></i>Бүртгүүлэх
+        <i class="fa-solid fa-lock"></i>Нэвтрэх
     </button>
 
     <div class="link">
-        Бүртгэлтэй юу? <a href="admin.php">Нэвтрэх</a>
+        Бүртгэлгүй юу? <a href="register.php">Бүртгүүлэх</a>
     </div>
 </form>
 
