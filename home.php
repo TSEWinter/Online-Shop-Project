@@ -18,6 +18,9 @@ $products = mysqli_query(
     <!-- font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- custom css file link -->
+    <link rel="stylesheet" href="css/style.css">
+
     <style>
         /* ===== RESET ===== */
         * {
@@ -188,16 +191,6 @@ $products = mysqli_query(
             font-weight: 700;
             cursor: pointer;
         }
-
-        /* ===== FOOTER ===== */
-        .site-footer {
-            background: #fff;
-            text-align: center;
-            padding: 35px 20px;
-            font-size: 14px;
-            color: #666;
-            border-top: 1px solid #e5e7eb;
-        }
     </style>
 </head>
 
@@ -252,11 +245,6 @@ $products = mysqli_query(
             </div>
         </div>
     </section>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="site-footer">
-        © 2026 Datacare ХХК · Дадлага ажил
-    </footer>
 
     <!-- ===== SCRIPTS ===== -->
     <script>
