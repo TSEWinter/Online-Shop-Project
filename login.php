@@ -1,193 +1,146 @@
 <?php
-// Нэвтрэх код энд бичигдэх болно
-// Database холболт үүсгэх линк
 include 'config.php';
 session_start();
 
-// Нэвтрэх товч дарагдсан эсэхийг шалгах
-if (isset($_POST['submit'])) {
-     // Мэдээлэл авах, аюулгүй байдлыг хангах
-     $email = mysqli_real_escape_string($conn, $_POST['email']);
-     $pass = mysqli_real_escape_string($conn, md5($_POST['password']));
+if(isset($_POST['submit'])){
+    $email = mysqli_real_escape_string($conn,$_POST['email']);
+    $pass  = mysqli_real_escape_string($conn,md5($_POST['password']));
 
-     // Хэрэгэлэгчийн мэдээллийг шалгах query
-     $select_users = mysqli_query($conn, "SELECT * FROM `users` WHERE email = '$email' AND password = '$pass'") or die('Нэвтрэхэд алдаа гарлаа');
+    $q = mysqli_query($conn,"SELECT * FROM users WHERE email='$email' AND password='$pass'");
+    if(mysqli_num_rows($q)>0){
+        $row=mysqli_fetch_assoc($q);
 
-     // хэрэглэгч олдсон эсэхийг шалгах
-     if (mysqli_num_rows($select_users) > 0) {
-          // Хэрэглэгчийн мэдээллийг авах
-          $row = mysqli_fetch_assoc($select_users);
-
-          // Хэрэглэгчийн төрөлийг шалгах
-          if ($row['user_type'] == 'admin') {
-
-               $_SESSION['admin_name'] = $row['name'];
-               $_SESSION['admin_email'] = $row['email'];
-               $_SESSION['admin_id'] = $row['id'];
-               // Админ хуудсанд шилжих
-               header('location:admin.php');
-          } elseif ($row['user_type'] == 'user') {
-
-               $_SESSION['user_name'] = $row['name'];
-               $_SESSION['user_email'] = $row['email'];
-               $_SESSION['user_id'] = $row['id'];
-               // Хэрэглэгчийн үндсэн хуудсанд шилжих
-               header('location:home.php');
-          }
-     } else {
-          $message[] = 'Имэйл эсвэл нууц үг буруу байна!';
-     }
+        if($row['user_type']=='admin'){
+            $_SESSION['admin_id']=$row['id'];
+            header('Location: admin/dashboard.php'); exit;
+        }else{
+            $_SESSION['user_id']=$row['id'];
+            header('Location: home.php'); exit;
+        }
+    }else{
+        $error="Имэйл эсвэл нууц үг буруу!";
+    }
 }
-
 ?>
-
-
 <!DOCTYPE html>
 <html lang="mn">
-
 <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Нэвтрэх</title>
+<meta charset="UTF-8">
+<title>Нэвтрэх</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-     <!-- FONT AWESOME ICON -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{box-sizing:border-box;font-family:"Segoe UI",system-ui,sans-serif}
+body{margin:0;height:100vh;overflow:hidden}
 
-     <style>
-          * {
-               box-sizing: border-box;
-               font-family: "Segoe UI", system-ui, sans-serif
-          }
+/* ===== BACKGROUND SLIDER ===== */
+.bg{
+    position:fixed;inset:0;
+    z-index:-2;
+}
+.bg div{
+    position:absolute;inset:0;
+    background-size:cover;
+    background-position:center;
+    opacity:0;
+    animation:bgSlide 30s infinite;
+}
+.bg div:nth-child(1){background-image:url('https://i.pinimg.com/originals/e1/8b/ff/e18bff75d75ee5744a0a81e53dd836ab.jpg')}
+.bg div:nth-child(2){background-image:url('https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/20547d52-3e1b-4c3d-b917-f0d7e0eb8bdf/AIR+FORCE+1+LOW+ESS+NBY+LEA.png');animation-delay:6s}
+.bg div:nth-child(3){background-image:url('https://images.pexels.com/photos/1300550/pexels-photo-1300550.jpeg?cs=srgb&dl=pexels-thelazyartist-1300550.jpg&fm=jpg');animation-delay:12s}
+.bg div:nth-child(4){background-image:url('https://images.macrumors.com/t/RHw_XUx-pFE6pl5TRv5a-LLIk9Y=/2500x0/filters:no_upscale()/article-new/2024/10/iPhone-17-Pro-Max-Smaller-Notch-Feature.jpg');animation-delay:18s}
+.bg div:nth-child(5){background-image:url('https://sm.mashable.com/t/mashable_sea/article/a/apple-airp/apple-airpods-pro-3-every-single-thing-we-know-so-far_uj6k.1248.jpg');animation-delay:24s}
 
-          body {
-               margin: 0;
-               height: 100vh;
-               background: linear-gradient(135deg, #667eea, #764ba2);
-               display: flex;
-               align-items: center;
-               justify-content: center;
-               position: relative;
-          }
+@keyframes bgSlide{
+    0%{opacity:0;transform:scale(1)}
+    10%{opacity:1}
+    30%{opacity:1}
+    40%{opacity:0;transform:scale(1.08)}
+    100%{opacity:0}
+}
 
-          .brand-tag {
-               position: absolute;
-               top: 24px;
-               left: 28px;
-               font-size: 14px;
-               font-weight: 600;
-               color: #fff;
-               opacity: .95;
-          }
+/* DARK OVERLAY */
+.overlay{
+    position:fixed;inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:-1;
+}
 
-          .brand-tag span {
-               font-weight: 400;
-               opacity: .85
-          }
-
-          .card {
-               width: 380px;
-               background: #fff;
-               padding: 32px;
-               border-radius: 14px;
-               box-shadow: 0 20px 50px rgba(0, 0, 0, .25)
-          }
-
-          .card h3 {
-               text-align: center;
-               margin-bottom: 22px;
-               font-size: 22px;
-               font-weight: 600
-          }
-
-          .card h3 i {
-               margin-right: 8px;
-               color: #667eea;
-          }
-
-          input {
-               width: 100%;
-               padding: 14px;
-               margin-bottom: 14px;
-               border-radius: 8px;
-               border: 1px solid #ddd;
-          }
-
-          input:focus {
-               outline: none;
-               border-color: #667eea
-          }
-
-          button {
-               width: 100%;
-               padding: 14px;
-               border: none;
-               border-radius: 8px;
-               background: linear-gradient(135deg, #667eea, #764ba2);
-               color: #fff;
-               font-size: 15px;
-               font-weight: 600;
-               cursor: pointer;
-          }
-
-          button i {
-               margin-right: 6px
-          }
-
-          .link {
-               text-align: center;
-               margin-top: 16px;
-               font-size: 14px
-          }
-
-          .link a {
-               color: #667eea;
-               font-weight: 600;
-               text-decoration: none
-          }
-
-          .alert {
-               background: #ffe3e3;
-               color: #b30000;
-               padding: 10px;
-               border-radius: 6px;
-               margin-bottom: 14px;
-               text-align: center;
-          }
-     </style>
+/* ===== FORM ===== */
+.wrapper{
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.card{
+    width:380px;
+    background:rgba(255,255,255,.95);
+    padding:34px;
+    border-radius:18px;
+    box-shadow:0 30px 60px rgba(0,0,0,.35);
+}
+.card h2{
+    text-align:center;
+    margin-bottom:24px;
+    font-size:22px;
+}
+input{
+    width:100%;
+    padding:14px;
+    margin-bottom:14px;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+}
+.msg{
+    background:#ffe3e3;
+    color:#b00000;
+    padding:10px;
+    border-radius:8px;
+    margin-bottom:14px;
+    text-align:center;
+}
+.link{
+    text-align:center;
+    margin-top:16px;
+}
+.link a{color:#667eea;font-weight:600;text-decoration:none}
+</style>
 </head>
 
 <body>
 
-     <div class="brand-tag">
-          Datacare ХХК · <span>Дадлага ажил</span>
-     </div>
+<div class="bg">
+    <div></div><div></div><div></div><div></div><div></div>
+</div>
+<div class="overlay"></div>
 
-     <div class="card">
+<div class="wrapper">
+    <form class="card" method="post">
+        <h2>Нэвтрэх</h2>
 
-          <?php
-          if (isset($message)) {
-               foreach ($message as $msg) {
-                    echo '<div class="alert">' . $msg . '</div>';
-               }
-          }
-          ?>
+        <?php if(isset($error)) echo '<div class="msg">'.$error.'</div>'; ?>
 
-          <form method="post">
-               <h3><i class="fa-solid fa-right-to-bracket"></i>Нэвтрэх</h3>
+        <input type="email" name="email" placeholder="Имэйл" required>
+        <input type="password" name="password" placeholder="Нууц үг" required>
 
-               <input type="email" name="email" placeholder="Имэйл хаяг" required>
-               <input type="password" name="password" placeholder="Нууц үг" required>
+        <button name="submit">Нэвтрэх</button>
 
-               <button name="submit">
-                    <i class="fa-solid fa-lock"></i>Нэвтрэх
-               </button>
+        <div class="link">
+            Бүртгэлгүй юу? <a href="register.php">Бүртгүүлэх</a>
+        </div>
+    </form>
+</div>
 
-               <div class="link">
-                    Бүртгэлгүй юу? <a href="register.php">Бүртгүүлэх</a>
-               </div>
-          </form>
-
-     </div>
 </body>
-
 </html>
