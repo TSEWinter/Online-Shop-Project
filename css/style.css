@@ -1,0 +1,89 @@
+/* Footer үндсэн тохиргоо */
+.footer {
+     background-color: #ffffff;
+     /* Цагаан дэвсгэр */
+     border-top: 1px solid #eee;
+     /* Дээд талын нарийн зураас */
+     padding: 3rem 9%;
+}
+
+.footer .box-container {
+     display: grid;
+     /* Дэлгэцийн хэмжээнээс хамаарч баганаа автоматаар тохируулна */
+     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+     gap: 2rem;
+}
+
+/* Гарчигны загвар */
+.footer .box-container .box h3 {
+     font-size: 1.2rem;
+     /* Жижиг, цэвэрхэн гарчиг */
+     color: #333;
+     text-transform: uppercase;
+     margin-bottom: 1.5rem;
+     font-weight: 600;
+}
+
+/* Холбоосуудын загвар */
+.footer .box-container .box a {
+     display: block;
+     font-size: 0.95rem;
+     color: #666;
+     /* Саарал өнгө */
+     padding: 0.5rem 0;
+     text-decoration: none;
+     transition: 0.3s linear;
+}
+
+/* Icon загвар */
+.footer .box-container .box a i {
+     padding-right: 0.5rem;
+     color: #667eea;
+     transition: 0.3s;
+}
+
+/* Хулгана хүргэх үед (Hover) */
+.footer .box-container .box a:hover {
+     color: #667eea;
+     /* Текст өнгөтэй болно */
+     padding-left: 0.5rem;
+     /* Үл ялиг баруун тийш хөдөлнө */
+}
+
+/* Social Media icons */
+.footer .box-container .box .share a {
+     display: inline-block;
+     /* Зэрэгцэж байрлана */
+     height: 2.5rem;
+     width: 2.5rem;
+     line-height: 2.5rem;
+     text-align: center;
+     border-radius: 50%;
+     background: #f5f5f5;
+     color: #333;
+     margin-right: 0.5rem;
+     padding: 0;
+     /* Дээрх padding-г тэглэх */
+}
+
+.footer .box-container .box .share a:hover {
+     background-color: #667eea;
+     color: #fff;
+     padding-left: 0;
+     /* Hover дээрх хөдөлгөөнийг болиулах */
+}
+
+/* Доод талын credit хэсэг */
+.footer .credit {
+     text-align: center;
+     margin-top: 2.5rem;
+     padding-top: 2rem;
+     border-top: 1px solid #eee;
+     font-size: 14px;
+     color: #666;
+}
+
+.footer .credit span {
+     color: #667eea;
+     font-weight: bold;
+}

@@ -4,27 +4,33 @@
 
           <div class="box">
                <h3>Бидний тухай</h3>
-               <a href="home.php">Бидний тухай</a>
-               <a href="">Тусламж</a>
+               <a href="#"> <i class="fas fa-angle-right"></i> Бидний тухай</a>
+               <a href="#"> <i class="fas fa-angle-right"></i> Тусламж</a>
+               <a href="#"> <i class="fas fa-angle-right"></i> Мэдээлэл</a>
           </div>
 
           <div class="box">
-               <h3>Үйлчилгээний нөхцөл</h3>
-               <a href="">Үйлчилгээний нөхцөл</a>
-               <a href="">Хүргэлтийн нөхцөл</a>
-          </div>
-
-          <div class="box">
-               <h3>Нэмэлт холбоос</h3>
-               <a href="">Сагс</a>
-               <a href="">Захиалга</a>
+               <h3>Үйлчилгээ</h3>
+               <a href="#"> <i class="fas fa-angle-right"></i> Үйлчилгээний нөхцөл</a>
+               <a href="#"> <i class="fas fa-angle-right"></i> Хүргэлтийн нөхцөл</a>
+               <a href="#"> <i class="fas fa-angle-right"></i> Буцаалтын бодлого</a>
           </div>
 
           <div class="box">
                <h3>Холбоо барих</h3>
-               <p> <i class="fas fa-phone"></i> +976-9999-9999 </p>
-               <p> <i class="fas fa-envelope"></i> Mongolia, Ulaanbator </p>
-               <p> <i class="fas fa-map-marker-alt"></i> info@Datacare.com </p>
+               <a href="#"> <i class="fas fa-phone"></i> +976-9999-9999 </a>
+               <a href="#"> <i class="fas fa-envelope"></i> info@datacare.com </a>
+               <a href="#"> <i class="fas fa-map-marker-alt"></i> Улаанбаатар, Монгол </a>
+          </div>
+
+          <div class="box">
+               <h3>Биднийг дагаарай</h3>
+               <div class="share">
+                    <a href="#" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-tiktok"></a>
+               </div>
           </div>
 
      </div>
