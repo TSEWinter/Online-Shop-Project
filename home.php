@@ -281,6 +281,9 @@ $products = mysqli_query(
     <!-- footer section -->
     <?php include 'footer.php'; ?>
 
+    <!-- JS file link -->
+    <script src="js/script.js"></script>
+
 
 </body>
 
