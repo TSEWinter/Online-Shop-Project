@@ -26,8 +26,6 @@ if(isset($_POST['submit'])){
 <style>
 *{box-sizing:border-box;font-family:"Segoe UI",system-ui,sans-serif}
 body{margin:0;height:100vh;overflow:hidden}
-
-/* ===== BACKGROUND SLIDER ===== */
 .bg{
     position:fixed;
     inset:0;
@@ -68,16 +66,12 @@ body{margin:0;height:100vh;overflow:hidden}
     40%{opacity:0;transform:scale(1.08)}
     100%{opacity:0}
 }
-
-/* DARK OVERLAY */
 .overlay{
     position:fixed;
     inset:0;
     background:rgba(0,0,0,.55);
     z-index:-1;
 }
-
-/* ===== BRAND ===== */
 .brand{
     position:absolute;
     top:24px;
@@ -87,8 +81,6 @@ body{margin:0;height:100vh;overflow:hidden}
     font-weight:600;
     opacity:.95;
 }
-
-/* ===== FORM ===== */
 .wrapper{
     height:100vh;
     display:flex;
@@ -137,19 +129,13 @@ button{
 </head>
 
 <body>
-
-<!-- BRAND -->
 <div class="brand">
     Datacare ХХК · Дадлага ажил
 </div>
-
-<!-- BACKGROUND -->
 <div class="bg">
     <div></div><div></div><div></div><div></div><div></div>
 </div>
 <div class="overlay"></div>
-
-<!-- FORM -->
 <div class="wrapper">
     <form class="card" method="post">
         <h2>Бүртгүүлэх</h2>
