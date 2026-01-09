@@ -32,35 +32,64 @@ if (session_status() === PHP_SESSION_NONE) {
 .nav{
     display:flex;
     align-items:center;
-    gap:22px;
+    gap:26px;
 }
-.nav a{
+.nav > a{
     text-decoration:none;
     font-size:14px;
     font-weight:600;
     color:#111;
 }
-.nav a:hover{
+
+/* ===== CATEGORY ROOT ===== */
+.category{
+    position:relative;
+}
+.category > a{
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    color:#111;
+    padding:8px 4px;
+    display:inline-block;
+}
+.category > a:hover{
     color:#667eea;
 }
 
-/* ===== CATEGORY INLINE ===== */
-.categories{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    margin-left:10px;
+/* ===== DROPDOWN ===== */
+.dropdown{
+    position:absolute;
+    top:100%;
+    left:0;
+    min-width:230px;
+    background:#fff;
+    border-radius:14px;
+    box-shadow:0 20px 40px rgba(0,0,0,.15);
+    padding:14px;
+    opacity:0;
+    transform:translateY(20px);
+    pointer-events:none;
+    transition:.25s ease;
 }
-.categories a{
+.category:hover .dropdown{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+}
+
+/* ===== DROPDOWN ITEMS ===== */
+.dropdown a{
+    display:block;
+    padding:10px 14px;
+    border-radius:8px;
     font-size:13px;
     font-weight:600;
+    color:#333;
     text-decoration:none;
-    color:#444;
-    padding:6px 10px;
-    border-radius:8px;
     transition:.2s;
 }
-.categories a:hover{
+.dropdown a:hover{
     background:#f3f4f6;
     color:#667eea;
 }
@@ -103,19 +132,65 @@ if (session_status() === PHP_SESSION_NONE) {
         <a href="home.php">Online Shop</a>
     </div>
 
-    <!-- NAV + CATEGORY -->
+    <!-- NAV -->
     <div class="nav">
+
         <a href="home.php">Нүүр</a>
 
-        <!-- CATEGORY INLINE -->
-        <div class="categories">
-            <a href="category.php?cat=shoes">👟 Гутал</a>
-            <a href="category.php?cat=shirts">👕 Цамц</a>
-            <a href="category.php?cat=pants">👖 Өмд</a>
-            <a href="category.php?cat=bag">👜 Цүнх</a>
-            <a href="category.php?cat=electronics">📱 Электрон</a>
-            <a href="category.php?cat=jewelry">💎 Үнэт эдлэл</a>
+        <!-- ER HUGJIL -->
+        <div class="category">
+            <a href="category.php?cat=men">👨 Эрэгтэй</a>
+            <div class="dropdown">
+                <a href="category.php?cat=men&sub=shoes">👟 Гутал</a>
+                <a href="category.php?cat=men&sub=shirt">👕 Цамц</a>
+                <a href="category.php?cat=men&sub=pants">👖 Өмд</a>
+                <a href="category.php?cat=men&sub=tshirt">👚 Футболк</a>
+            </div>
         </div>
+
+        <!-- EMEGTEI -->
+        <div class="category">
+            <a href="category.php?cat=women">👩 Эмэгтэй</a>
+            <div class="dropdown">
+                <a href="category.php?cat=women&sub=shoes">👠 Гутал</a>
+                <a href="category.php?cat=women&sub=dress">👗 Даашинз</a>
+                <a href="category.php?cat=women&sub=top">👚 Цамц</a>
+                <a href="category.php?cat=women&sub=accessories">👜 Аксессуар</a>
+            </div>
+        </div>
+
+        <!-- HUUHED -->
+        <div class="category">
+            <a href="category.php?cat=kids">🧒 Хүүхэд</a>
+            <div class="dropdown">
+                <a href="category.php?cat=kids&sub=clothes">👕 Хувцас</a>
+                <a href="category.php?cat=kids&sub=shoes">👟 Гутал</a>
+                <a href="category.php?cat=kids&sub=toys">🧸 Тоглоом</a>
+            </div>
+        </div>
+
+        <!-- ELECTRONICS -->
+        <div class="category">
+            <a href="category.php?cat=electronics">📱 Электрон</a>
+            <div class="dropdown">
+                <a href="category.php?cat=electronics&sub=phone">📱 Гар утас</a>
+                <a href="category.php?cat=electronics&sub=laptop">💻 Зөөврийн компьютер</a>
+                <a href="category.php?cat=electronics&sub=tablet">📟 Таблет</a>
+                <a href="category.php?cat=electronics&sub=accessories">🎧 Дагалдах хэрэгсэл</a>
+            </div>
+        </div>
+
+        <!-- JEWELRY -->
+        <div class="category">
+            <a href="category.php?cat=jewelry">💎 Үнэт эдлэл</a>
+            <div class="dropdown">
+                <a href="category.php?cat=jewelry&sub=ring">💍 Бөгж</a>
+                <a href="category.php?cat=jewelry&sub=necklace">📿 Зүүлт</a>
+                <a href="category.php?cat=jewelry&sub=bracelet">📿 Бугуйвч</a>
+                <a href="category.php?cat=jewelry&sub=earring">✨ Ээмэг</a>
+            </div>
+        </div>
+
     </div>
 
     <!-- AUTH -->
