@@ -15,14 +15,14 @@ $products = mysqli_query(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Shop</title>
 
-    <!-- font awesome cdn link -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- custom css file link -->
+    
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        /* ===== RESET ===== */
+        
         * {
             box-sizing: border-box;
             font-family: "Segoe UI", system-ui, sans-serif
@@ -34,7 +34,6 @@ $products = mysqli_query(
             color: #111
         }
 
-        /* ===== HERO SLIDER ===== */
         .hero-slider {
             position: relative;
             height: 85vh;
@@ -84,8 +83,6 @@ $products = mysqli_query(
             font-size: 18px;
             margin-top: 16px
         }
-
-        /* ===== SECTION TITLE ===== */
         .section-title {
             text-align: center;
             font-size: 28px;
@@ -93,7 +90,6 @@ $products = mysqli_query(
             margin-bottom: 50px;
         }
 
-        /* ===== NEW ITEMS ===== */
         .new-section {
             padding: 100px 20px;
             background: #f5f6fa;
@@ -119,7 +115,6 @@ $products = mysqli_query(
             object-fit: cover;
         }
 
-        /* SCROLL EFFECT */
         .reveal {
             opacity: 0;
             transform: translateY(80px) scale(.9);
@@ -131,7 +126,6 @@ $products = mysqli_query(
             transform: translateY(0) scale(1);
         }
 
-        /* ===== PRODUCTS ===== */
         .products-section {
             padding: 100px 20px;
         }
@@ -195,10 +189,7 @@ $products = mysqli_query(
 </head>
 
 <body>
-    <!-- Header section -->
     <?php include 'header.php'; ?>
-
-    <!-- ===== LUXURY COLLECTION ===== -->
     <div class="hero-slider">
         <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600');"></div>
         <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=1600');"></div>
@@ -206,14 +197,10 @@ $products = mysqli_query(
         <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1600');"></div>
 
         <div class="hero-content">
-            <h1>Luxury Collection</h1>
-            <p>Дээд зэрэглэлийн загвар, технологи</p>
         </div>
     </div>
-
-    <!-- ===== NEW ITEMS ===== -->
     <section class="new-section">
-        <h2 class="section-title">✨ Шинэ бараанууд</h2>
+        <h2 class="section-title">Шинэ бараанууд</h2>
         <div class="new-grid">
             <div class="new-card reveal"><img src="https://th.bing.com/th/id/R.493fce528011e4136d073c8b6c747b77?rik=cp%2bFq2OwQvR4AQ&riu=http%3a%2f%2fwww.modern-notoriety.com%2fwp-content%2fuploads%2f2018%2f05%2fnike-air-force-1-100-aq3621-111-2.jpg&ehk=50KOjjNQHNSEHBKCTvU1eUxgq6SselcNXnqN7EDO0JM%3d&risl=&pid=ImgRaw&r=0"></div>
             <div class="new-card reveal"><img src="https://tse1.mm.bing.net/th/id/OIP.ZW6fAIOT0Q-8FY9xEBNMywHaJQ?cb=defcachec2&rs=1&pid=ImgDetMain&o=7&rm=3"></div>
@@ -225,11 +212,9 @@ $products = mysqli_query(
             <div class="new-card reveal"><img src="https://tse2.mm.bing.net/th/id/OIP.UATIPfQpyNUfknO8ss9kFwHaHa?cb=defcachec2&rs=1&pid=ImgDetMain&o=7&rm=3"></div>
         </div>
     </section>
-
-    <!-- ===== PRODUCTS ===== -->
     <section class="products-section">
         <div class="products-container">
-            <h2 class="section-title">🔥 Бараанууд</h2>
+            <h2 class="section-title">Бараанууд</h2>
 
             <div class="grid">
                 <?php while ($row = mysqli_fetch_assoc($products)): ?>
@@ -245,12 +230,8 @@ $products = mysqli_query(
             </div>
         </div>
     </section>
-
-    <!-- ===== SCRIPTS ===== -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-
-            /* SLIDER */
             const slides = document.querySelectorAll('.slide');
             let index = 0;
             setInterval(() => {
@@ -258,8 +239,6 @@ $products = mysqli_query(
                 index = (index + 1) % slides.length;
                 slides[index].classList.add('active');
             }, 5000);
-
-            /* SCROLL REVEAL */
             const reveals = document.querySelectorAll('.reveal');
 
             function handleScroll() {
@@ -277,11 +256,7 @@ $products = mysqli_query(
             handleScroll();
         });
     </script>
-
-    <!-- footer section -->
     <?php include 'footer.php'; ?>
-
-    <!-- JS file link -->
     <script src="js/script.js"></script>
 
 
