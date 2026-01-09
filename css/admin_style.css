@@ -13,6 +13,12 @@ body {
      align-items: center;
 }
 
+.header b a {
+     font-size: 22px;
+     text-decoration: none;
+     color: #fff;
+}
+
 .nav a {
      color: #fff;
      margin-left: 20px;
