@@ -1,31 +1,69 @@
 <?php
 include '../config.php';
 session_start();
-if(!isset($_SESSION['admin_id'])) exit;
 
-$id=$_GET['id'];
-$p=mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM products WHERE id=$id"));
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: ../login.php');
+    exit;
+}
 
-if(isset($_POST['save'])){
-    $name=$_POST['name'];
-    $price=$_POST['price'];
+$id = (int)$_GET['id'];
 
-    if($_FILES['image']['name']){
-        $img=$_FILES['image']['name'];
-        move_uploaded_file($_FILES['image']['tmp_name'],
-            "../uploaded_img/$img");
-        mysqli_query($conn,
-            "UPDATE products SET name='$name',price='$price',image='$img' WHERE id=$id");
-    }else{
-        mysqli_query($conn,
-            "UPDATE products SET name='$name',price='$price' WHERE id=$id");
-    }
-    header('Location: products.php');
+$product = mysqli_fetch_assoc(
+    mysqli_query($conn, "SELECT * FROM products WHERE id=$id")
+);
+
+if (isset($_POST['submit'])) {
+
+    $name     = $_POST['name'];
+    $price    = $_POST['price'];
+    $category = (int)$_POST['category'];
+    $status   = $_POST['status'];
+
+    mysqli_query(
+        $conn,
+        "UPDATE products SET
+         name='$name',
+         price='$price',
+         category=$category,
+         status='$status'
+         WHERE id=$id"
+    );
+
+    header('Location: products.php?msg=updated');
+    exit;
 }
 ?>
-<form method="post" enctype="multipart/form-data">
-<input name="name" value="<?= $p['name'] ?>">
-<input name="price" value="<?= $p['price'] ?>">
-<input type="file" name="image">
-<button name="save">Save</button>
+<!DOCTYPE html>
+<html lang="mn">
+<head><meta charset="UTF-8"><title>Edit Product</title></head>
+<body>
+
+<h2>Бараа засах</h2>
+
+<form method="post">
+<p>Нэр:<br><input type="text" name="name" value="<?= $product['name'] ?>"></p>
+<p>Үнэ:<br><input type="number" step="0.01" name="price" value="<?= $product['price'] ?>"></p>
+
+<p>Ангилал:<br>
+<select name="category">
+    <option value="1" <?= $product['category']==1?'selected':'' ?>>Эрэгтэй</option>
+    <option value="2" <?= $product['category']==2?'selected':'' ?>>Эмэгтэй</option>
+    <option value="3" <?= $product['category']==3?'selected':'' ?>>Хүүхэд</option>
+    <option value="4" <?= $product['category']==4?'selected':'' ?>>Электрон</option>
+    <option value="5" <?= $product['category']==5?'selected':'' ?>>Үнэт эдлэл</option>
+</select>
+</p>
+
+<p>Status:<br>
+<select name="status">
+    <option value="active" <?= $product['status']=='active'?'selected':'' ?>>Active</option>
+    <option value="inactive" <?= $product['status']=='inactive'?'selected':'' ?>>Inactive</option>
+</select>
+</p>
+
+<button name="submit">Save</button>
 </form>
+
+</body>
+</html>
