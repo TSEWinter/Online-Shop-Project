@@ -15,15 +15,17 @@ if (!isset($_SESSION['admin_id'])) {
 <html lang="mn">
 
 <head>
-<meta charset="UTF-8">
-<title>Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
 
     <!-- Font Awesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <!-- Custom Admin CSS File Link -->
     <link rel="stylesheet" href="/Online-Shop-Project/css/admin_style.css">
-    
+
+
+
 
 </head>
 
@@ -33,38 +35,38 @@ if (!isset($_SESSION['admin_id'])) {
 
     <?php include 'sidebar.php'; ?>
 
-<div class="container">
+    <div class="container">
 
-    <h2>Тавтай морил, Admin</h2>
+        <h2>Тавтай морил, Admin</h2>
 
-    <?php
+        <?php
         // Simple stats
         $productCount = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM products"));
         $userCount    = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM users"));
-    ?>
+        ?>
 
-    <div class="grid">
-        <div class="stat">
-            <h3><?php echo $productCount; ?></h3>
-            <p>Нийт бараа</p>
+        <div class="grid">
+            <div class="stat">
+                <h3><?php echo $productCount; ?></h3>
+                <p>Нийт бараа</p>
+            </div>
+            <div class="stat">
+                <h3><?php echo $userCount; ?></h3>
+                <p>Нийт хэрэглэгч</p>
+            </div>
         </div>
-        <div class="stat">
-            <h3><?php echo $userCount; ?></h3>
-            <p>Нийт хэрэглэгч</p>
+
+        <div style="margin-top:40px" class="card">
+            <h3>Админ боломжууд</h3>
+            <ul>
+                <li>Бараа нэмэх / засах / устгах</li>
+                <li>Зураг солих</li>
+                <li>Үнэ засах</li>
+                <li>Category удирдах</li>
+            </ul>
         </div>
-    </div>
 
-    <div style="margin-top:40px" class="card">
-        <h3>Админ боломжууд</h3>
-        <ul>
-            <li>Бараа нэмэх / засах / устгах</li>
-            <li>Зураг солих</li>
-            <li>Үнэ засах</li>
-            <li>Category удирдах</li>
-        </ul>
     </div>
-
-</div>
 
 </body>
 
