@@ -30,6 +30,8 @@ if (!isset($_SESSION['admin_id'])) {
 
     <?php include 'admin_header.php'; ?>
 
+    <?php include 'sidebar.php'; ?>
+
     <div class="container">
 
         <h2>Тавтай морил, Admin</h2>
