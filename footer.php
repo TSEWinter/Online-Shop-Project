@@ -13,7 +13,7 @@
                <h3>Үйлчилгээ</h3>
                <a href="#"> <i class="fas fa-angle-right"></i> Үйлчилгээний нөхцөл</a>
                <a href="#"> <i class="fas fa-angle-right"></i> Хүргэлтийн нөхцөл</a>
-               <a href="#"> <i class="fas fa-angle-right"></i> Буцаалтын бодлого</a>
+               <a href="#"> <i class="fas fa-angle-right"></i> Буцаалт</a>
           </div>
 
           <div class="box">

@@ -99,7 +99,7 @@ img{
 <div class="wrapper">
 
 <div class="header">
-    <h2>📦 Барааны жагсаалт</h2>
+    <h2>Барааны жагсаалт</h2>
     <a href="product_add.php" class="add-btn">+ Шинэ бараа</a>
 </div>
 
