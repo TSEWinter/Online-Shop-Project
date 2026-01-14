@@ -10,49 +10,99 @@ $users = mysqli_query($conn, "SELECT * FROM users ORDER BY id DESC");
 ?>
 <!DOCTYPE html>
 <html lang="mn">
+
 <head>
-<meta charset="UTF-8">
-<title>Admin | Users</title>
-<style>
-body{font-family:Segoe UI;background:#f4f6fb;margin:0}
-.box{max-width:1100px;margin:40px auto;background:#fff;padding:30px;border-radius:14px}
-table{width:100%;border-collapse:collapse}
-th,td{padding:14px;text-align:left}
-th{background:#f1f3f5}
-.badge{padding:6px 10px;border-radius:999px;font-size:12px}
-.admin{background:#dbeafe;color:#1e40af}
-.user{background:#dcfce7;color:#166534}
-</style>
+    <meta charset="UTF-8">
+    <title>Admin | Users</title>
+
+    <!-- Font Awesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Custom Admin CSS File Link -->
+    <link rel="stylesheet" href="/Online-Shop-Project/css/admin_style.css">
+
+    <style>
+        body {
+            font-family: Segoe UI;
+            background: #f4f6fb;
+            margin: 0
+        }
+
+        .box {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 14px
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        th,
+        td {
+            padding: 14px;
+            text-align: left
+        }
+
+        th {
+            background: #f1f3f5
+        }
+
+        .badge {
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px
+        }
+
+        .admin {
+            background: #dbeafe;
+            color: #1e40af
+        }
+
+        .user {
+            background: #dcfce7;
+            color: #166534
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="box">
-<h2>Хэрэглэгчид</h2>
+    <?php include 'admin_header.php'; ?>
 
-<table>
-<tr>
-    <th>ID</th>
-    <th>Нэр</th>
-    <th>Email</th>
-    <th>Төрөл</th>
-    <th>Огноо</th>
-</tr>
+    <?php include 'sidebar.php'; ?>
 
-<?php while($u=mysqli_fetch_assoc($users)): ?>
-<tr>
-    <td><?= $u['id'] ?></td>
-    <td><?= $u['name'] ?></td>
-    <td><?= $u['email'] ?></td>
-    <td>
-        <span class="badge <?= $u['user_type'] ?>">
-            <?= $u['user_type'] ?>
-        </span>
-    </td>
-    <td><?= $u['create_date'] ?></td>
-</tr>
-<?php endwhile; ?>
+    <div class="box">
+        <h2>Хэрэглэгчид</h2>
 
-</table>
-</div>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Нэр</th>
+                <th>Email</th>
+                <th>Төрөл</th>
+                <th>Огноо</th>
+            </tr>
+
+            <?php while ($u = mysqli_fetch_assoc($users)): ?>
+                <tr>
+                    <td><?= $u['id'] ?></td>
+                    <td><?= $u['name'] ?></td>
+                    <td><?= $u['email'] ?></td>
+                    <td>
+                        <span class="badge <?= $u['user_type'] ?>">
+                            <?= $u['user_type'] ?>
+                        </span>
+                    </td>
+                    <td><?= $u['create_date'] ?></td>
+                </tr>
+            <?php endwhile; ?>
+
+        </table>
+    </div>
 </body>
+
 </html>
