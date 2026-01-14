@@ -113,7 +113,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <!-- AUTH -->
         <div class="auth">
             <?php if (isset($_SESSION['admin_id'])): ?>
-                <a href="admin/dashboard.php" class="btn btn-dashboard">Dashboard</a>
+                
                 <a href="logout.php" class="btn btn-logout">Гарах</a>
 
             <?php elseif (isset($_SESSION['user_id'])): ?>

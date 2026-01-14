@@ -10,16 +10,12 @@ if(isset($_POST['submit'])){
     if(mysqli_num_rows($q)>0){
         $row=mysqli_fetch_assoc($q);
 
-        if($row['user_type']=='admin'){
-            $_SESSION['admin_id']=$row['id'];
-            header('Location: admin/dashboard.php'); exit;
-        }else{
+        if($row['user_type']=='user'){
             $_SESSION['user_id']=$row['id'];
             header('Location: home.php'); exit;
-        }
-    }else{
+        }else
         $error="Имэйл эсвэл нууц үг буруу!";
-    }
+    }    
 }
 ?>
 <!DOCTYPE html>
@@ -33,7 +29,6 @@ if(isset($_POST['submit'])){
 *{box-sizing:border-box;font-family:"Segoe UI",system-ui,sans-serif}
 body{margin:0;height:100vh;overflow:hidden}
 
-/* ===== BACKGROUND SLIDER ===== */
 .bg{
     position:fixed;inset:0;
     z-index:-2;
@@ -58,15 +53,11 @@ body{margin:0;height:100vh;overflow:hidden}
     40%{opacity:0;transform:scale(1.08)}
     100%{opacity:0}
 }
-
-/* DARK OVERLAY */
 .overlay{
     position:fixed;inset:0;
     background:rgba(0,0,0,.55);
     z-index:-1;
 }
-
-/* ===== FORM ===== */
 .wrapper{
     height:100vh;
     display:flex;
@@ -137,6 +128,7 @@ button{
         <button name="submit">Нэвтрэх</button>
 
         <div class="link">
+            Нууц үгээ мартсан уу? <a href="forgot_password.php">Сэргээх</a><br>
             Бүртгэлгүй юу? <a href="register.php">Бүртгүүлэх</a>
         </div>
     </form>

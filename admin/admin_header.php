@@ -12,9 +12,9 @@ if (isset($message)) {
 ?>
 
 <div class="header">
-     <div><b><a href="dashboard.php">Admin Dashboard</a></b></div>
+     
      <div class="nav">
-          <a href="product.php">Products</a>
+          
           <a href="../home.php">View Site</a>
           <a href="../logout.php">Logout</a>
      </div>

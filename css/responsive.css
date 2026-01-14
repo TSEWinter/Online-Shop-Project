@@ -1,0 +1,139 @@
+/* ===== GLOBAL RESET ===== */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* хажуу тийш суналтаас хамгаална */
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+    padding: 0 16px;
+}
+
+/* ===== GRID (HOME / CATEGORY) ===== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+/* ===== CARD ===== */
+.card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.card img {
+    height: 220px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 16px;
+}
+
+/* ===== HEADER ===== */
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background: #fff;
+}
+
+/* ===== NAV ===== */
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+/* ===== AUTH BUTTONS ===== */
+.auth {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* ===== FORM CARD ===== */
+.card-form {
+    max-width: 380px;
+    width: 100%;
+    margin: 16px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.12);
+}
+
+/* ===== TABLE (ADMIN) ===== */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* ===============================
+   📱 MOBILE (≤768px)
+   =============================== */
+@media (max-width: 768px) {
+
+    .header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .nav {
+        justify-content: center;
+    }
+
+    .auth {
+        justify-content: center;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card img {
+        height: 180px;
+    }
+}
+
+/* ===============================
+   📱 SMALL MOBILE (≤480px)
+   =============================== */
+@media (max-width: 480px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    h1, h2 {
+        font-size: 18px;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 14px;
+    }
+}

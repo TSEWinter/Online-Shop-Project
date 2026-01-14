@@ -146,7 +146,7 @@ $products = mysqli_query($conn, "SELECT * FROM products ORDER BY id DESC");
     <div class="wrapper">
 
         <div class="header">
-            <h2>📦 Барааны жагсаалт</h2>
+            <h2>Барааны жагсаалт</h2>
             <a href="product_add.php" class="add-btn">+ Шинэ бараа</a>
         </div>
 

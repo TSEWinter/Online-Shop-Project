@@ -20,6 +20,7 @@ $products = mysqli_query(
 
     
     <link rel="stylesheet" href="/Online-Shop-Project/css/style.css">
+    
 
 </head>
 
